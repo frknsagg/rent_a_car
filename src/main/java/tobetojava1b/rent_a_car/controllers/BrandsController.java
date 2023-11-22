@@ -1,6 +1,8 @@
 package tobetojava1b.rent_a_car.controllers;
 
 import org.springframework.web.bind.annotation.*;
+import tobetojava1b.rent_a_car.dtos.requests.brand.AddBrandRequest;
+import tobetojava1b.rent_a_car.dtos.responses.brand.GetBrandResponse;
 import tobetojava1b.rent_a_car.entities.Brand;
 import tobetojava1b.rent_a_car.repositories.BrandRepository;
 
@@ -22,12 +24,25 @@ public class BrandsController {
     }
 
     @GetMapping("{id}")
-    public Brand getById(@PathVariable int id) {
-        return brandRepository.findById(id).orElseThrow();
+    // Brand Yanlış
+    // BrandForDetailDto
+    public GetBrandResponse getById(@PathVariable int id) {
+        Brand brand = brandRepository.findById(id).orElseThrow();
+
+        GetBrandResponse dto = new GetBrandResponse();
+        dto.setName(brand.getName());
+
+        return dto;
     }
 
     @PostMapping
-    public void save(@RequestBody Brand brand) {
+    // Brand *
+    // BrandForAddDto
+    public void save(@RequestBody AddBrandRequest brandForAddDto) {
+
+        //Manual Mapping => Auto Mapping
+        Brand brand = new Brand();
+        brand.setName(brandForAddDto.getName());
         brandRepository.save(brand);
     }
 
@@ -48,3 +63,7 @@ public class BrandsController {
         brandRepository.deleteById(id);
     }
 }
+
+// her istek için bir Request bir Response modeli bulunmalıdır
+
+// AddBrandResponse add(AddBrandRequest request) {}
