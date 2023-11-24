@@ -2,6 +2,9 @@ package tobetojava1b.rent_a_car.controllers;
 
 
 import org.springframework.web.bind.annotation.*;
+import tobetojava1b.rent_a_car.dtos.requests.payment.AddPaymentRequest;
+import tobetojava1b.rent_a_car.dtos.requests.payment.UpdatePaymentRequest;
+import tobetojava1b.rent_a_car.dtos.responses.payment.GetPaymentResponse;
 import tobetojava1b.rent_a_car.entities.Payment;
 import tobetojava1b.rent_a_car.repositories.PaymentRepository;
 
@@ -20,17 +23,26 @@ public class PaymentsController {
     public List<Payment> getAll(){
         return paymentRepository.findAll();
     }
+    @GetMapping("{id}")
+    public GetPaymentResponse getById(@PathVariable int id){
+        Payment payment = paymentRepository.findById(id).orElseThrow();
+        GetPaymentResponse dto = new GetPaymentResponse();
+        dto.setPaymentMethod(payment.getPaymentMethod());
+        return dto;
+    }
 
     @PostMapping
-    public void add(@RequestBody Payment payment){
+    public void add(@RequestBody AddPaymentRequest addPaymentRequest){
+        Payment payment = new Payment();
+        payment.setPaymentMethod(addPaymentRequest.getPaymentMethod());
         paymentRepository.save(payment);
     }
 
     @PutMapping("{id}")
-    public void update(@PathVariable int id,@RequestBody Payment updatedPayment){
+    public void update(@PathVariable int id,@RequestBody UpdatePaymentRequest updatePaymentRequest){
         Payment payment = paymentRepository.findById(id).orElseThrow();
 
-        payment.setPaymentMethod(updatedPayment.getPaymentMethod());
+        payment.setPaymentMethod(updatePaymentRequest.getPaymentMethod());
         paymentRepository.save(payment);
     }
 

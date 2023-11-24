@@ -2,6 +2,9 @@ package tobetojava1b.rent_a_car.controllers;
 
 
 import org.springframework.web.bind.annotation.*;
+import tobetojava1b.rent_a_car.dtos.requests.insurance.AddInsuranceRequest;
+import tobetojava1b.rent_a_car.dtos.requests.insurance.UpdateInsuranceRequest;
+import tobetojava1b.rent_a_car.dtos.responses.insurance.GetInsuranceResponse;
 import tobetojava1b.rent_a_car.entities.Insurance;
 import tobetojava1b.rent_a_car.repositories.InsuranceRepository;
 
@@ -19,22 +22,40 @@ public class InsurancesController {
 
     @GetMapping
     public List<Insurance> getAll() {
-        return insuranceRepository.findAll();
-    }
+        return  insuranceRepository.findAll();
 
-    @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody Insurance updatedInsurance) {
+    }
+    @GetMapping("{id}")
+    public GetInsuranceResponse getById(@PathVariable int id){
         Insurance insurance = insuranceRepository.findById(id).orElseThrow();
-        insurance.setCompanyName(updatedInsurance.getCompanyName());
-        insurance.setStartDate(updatedInsurance.getStartDate());
-        insurance.setEndDate(updatedInsurance.getEndDate());
-        insurance.setPolicyNumber(updatedInsurance.getPolicyNumber());
+        GetInsuranceResponse dto = new GetInsuranceResponse();
+        dto.setCompanyName(insurance.getCompanyName());
+        dto.setPolicyNumber(insurance.getPolicyNumber());
+        dto.setStartDate(insurance.getStartDate());
+        dto.setEndDate(insurance.getEndDate());
+
+        return dto;
+    }
+    @PutMapping("{id}")
+    public void update(@PathVariable int id, @RequestBody UpdateInsuranceRequest updateInsuranceRequest) {
+        Insurance insurance = insuranceRepository.findById(id).orElseThrow();
+
+        insurance.setCompanyName(updateInsuranceRequest.getCompanyName());
+        insurance.setStartDate(updateInsuranceRequest.getStartDate());
+        insurance.setEndDate(updateInsuranceRequest.getEndDate());
+        insurance.setPolicyNumber(updateInsuranceRequest.getPolicyNumber());
 
         insuranceRepository.save(insurance);
     }
 
     @PostMapping
-    public void save(@RequestBody Insurance insurance) {
+    public void save(@RequestBody AddInsuranceRequest addInsuranceRequest) {
+        Insurance insurance = new Insurance();
+        insurance.setPolicyNumber(addInsuranceRequest.getPolicyNumber());
+        insurance.setCompanyName(addInsuranceRequest.getCompanyName());
+        insurance.setStartDate(addInsuranceRequest.getStartDate());
+        insurance.setEndDate(addInsuranceRequest.getEndDate());
+
         insuranceRepository.save(insurance);
     }
 
