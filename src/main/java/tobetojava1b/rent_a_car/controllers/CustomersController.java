@@ -1,62 +1,44 @@
 package tobetojava1b.rent_a_car.controllers;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tobetojava1b.rent_a_car.dtos.requests.customer.AddCustomerRequest;
-import tobetojava1b.rent_a_car.dtos.requests.customer.UpdateCustomerRequest;
-import tobetojava1b.rent_a_car.dtos.responses.customer.GetCustomerResponse;
+import tobetojava1b.rent_a_car.services.abstracts.CustomerService;
+import tobetojava1b.rent_a_car.services.dtos.requests.customer.AddCustomerRequest;
+import tobetojava1b.rent_a_car.services.dtos.requests.customer.UpdateCustomerRequest;
+import tobetojava1b.rent_a_car.services.dtos.responses.customer.GetCustomerResponse;
 import tobetojava1b.rent_a_car.entities.Customer;
-import tobetojava1b.rent_a_car.repositories.CustomerRepository;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/customers")
 public class CustomersController {
-    private final CustomerRepository customerRepository;
-
-    public CustomersController(CustomerRepository customerRepository){
-        this.customerRepository = customerRepository;
-    }
+    private final CustomerService customerService;
 
     @GetMapping
-    public List<Customer> getAll(){
-        return customerRepository.findAll();
+    public List<Customer> getAll() {
+        return customerService.getAll();
     }
-    @GetMapping("{id}")
-    public GetCustomerResponse getById(@PathVariable int id){
-        Customer customer = customerRepository.findById(id).orElseThrow();
 
-        GetCustomerResponse dto = new GetCustomerResponse();
-        dto.setEmail(customer.getEmail());
-        dto.setPhone(customer.getPhoneNumber());
-        dto.setFirstName(customer.getFirstName());
-        dto.setLastName(customer.getLastName());
-        return dto;
+    @GetMapping("{id}")
+    public GetCustomerResponse getById(@PathVariable int id) {
+        return customerService.getById(id);
     }
+
     @PostMapping
-    public void add(@RequestBody AddCustomerRequest addCustomerRequest){
-        Customer customer = new Customer();
-        customer.setFirstName(addCustomerRequest.getFirstName());
-        customer.setLastName(addCustomerRequest.getLastName());
-        customer.setEmail(addCustomerRequest.getEmail());
-        customer.setPhoneNumber(addCustomerRequest.getPhone());
-        customerRepository.save(customer);
+    public void add(@RequestBody AddCustomerRequest request) {
+        customerService.add(request);
     }
 
     @PutMapping("{id}")
-    public void update(@PathVariable int id,@RequestBody UpdateCustomerRequest updateCustomerRequest){
-        Customer customer = customerRepository.findById(id).orElseThrow();
-        customer.setFirstName(updateCustomerRequest.getFirstName());
-        customer.setLastName(updateCustomerRequest.getLastName());
-        customer.setEmail(updateCustomerRequest.getEmail());
-        customer.setPhoneNumber(updateCustomerRequest.getPhone());
-        customerRepository.save(customer);
-
+    public void update(@PathVariable int id, @RequestBody UpdateCustomerRequest updateCustomerRequest) {
+        customerService.update(id, updateCustomerRequest);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        customerRepository.deleteById(id);
+    public void delete(@PathVariable int id) {
+        customerService.delete(id);
     }
 }
