@@ -9,7 +9,9 @@ import tobetojava1b.rent_a_car.services.dtos.requests.insurance.UpdateInsuranceR
 import tobetojava1b.rent_a_car.services.dtos.responses.insurance.GetInsuranceResponse;
 import tobetojava1b.rent_a_car.entities.Insurance;
 import tobetojava1b.rent_a_car.repositories.InsuranceRepository;
+import tobetojava1b.rent_a_car.services.dtos.responses.rentalDetail.GetRentalDetailResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -41,5 +43,23 @@ public class InsurancesController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {
         insuranceService.delete(id);
+    }
+    @GetMapping("/getNameLike")
+    public List<GetInsuranceResponse> getNameLike(@RequestParam String name){
+        return insuranceService.findByCompanyNameLike(name);
+    }
+    @GetMapping("/dateAfter")
+    public List<GetInsuranceResponse> getStartDateAfter(@RequestParam LocalDate date)
+    {
+        return insuranceService.findByStartDateAfter(date);
+    }
+    @GetMapping("/getPolicy")
+    public List<GetInsuranceResponse> getInsuranceEqualsPoliciy(@RequestParam String policyNumber){
+        return insuranceService.getAllPolicyNumber(policyNumber);
+    }
+    @GetMapping("/getOutOfDate")
+    public List<GetInsuranceResponse> getOutOfDate(@RequestParam LocalDate date)
+    {
+        return insuranceService.getRentalByOutOfDate(date);
     }
 }

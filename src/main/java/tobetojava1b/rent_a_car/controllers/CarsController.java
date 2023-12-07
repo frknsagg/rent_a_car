@@ -5,12 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.CarService;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.AddCarRequest;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.UpdateCarRequest;
+import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarListResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarResponse;
-import tobetojava1b.rent_a_car.entities.Car;
-import tobetojava1b.rent_a_car.repositories.CarRepository;
-import tobetojava1b.rent_a_car.repositories.InsuranceRepository;
-import tobetojava1b.rent_a_car.repositories.ModelRepository;
-
 import java.util.List;
 
 @RestController
@@ -18,14 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CarsController {
 
-    private final CarRepository carRepository;
-    private final InsuranceRepository insuranceRepository;
-    private final ModelRepository modelRepository;
     private final CarService carService;
 
-
     @GetMapping
-    public List<Car> getAll() {
+    public List<GetCarListResponse> getAll() {
         return carService.getAll();
     }
     @GetMapping("{id}")

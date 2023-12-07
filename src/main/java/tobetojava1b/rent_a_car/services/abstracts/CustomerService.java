@@ -19,4 +19,8 @@ public interface CustomerService {
     void delete(int id);
 
     List<Customer> getAll();
+    List<GetCustomerResponse> findByNameStartingWith(String prefix);
+    List<GetCustomerResponse> findByNameEndingWith(String suffix);
+    List<GetCustomerResponse> getPhoneNumberIsNotNull();
+    List<GetCustomerResponse> search(String firstName);
 }

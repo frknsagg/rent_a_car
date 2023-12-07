@@ -41,4 +41,20 @@ public class CustomersController {
     public void delete(@PathVariable int id) {
         customerService.delete(id);
     }
+    @GetMapping("/getStartWithWord")
+    public List<GetCustomerResponse> getCustomerStartsWith(@RequestParam String prefix){
+        return customerService.findByNameStartingWith(prefix);
+    }
+    @GetMapping("/getEndingWithWord")
+    public List<GetCustomerResponse> getCustomerEndingWith(@RequestParam String suffix){
+        return customerService.findByNameEndingWith(suffix);
+    }
+    @GetMapping("/phoneNumberIsNotNull")
+    public List<GetCustomerResponse> getPhoneNumberIsNotNull(){
+        return customerService.getPhoneNumberIsNotNull();
+    }
+    @GetMapping("equalWithName")
+    public List<GetCustomerResponse> search(@RequestParam String firstName){
+        return customerService.search(firstName);
+    }
 }

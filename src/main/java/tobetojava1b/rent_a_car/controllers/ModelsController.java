@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.ModelService;
 import tobetojava1b.rent_a_car.services.dtos.requests.model.AddModelRequest;
 import tobetojava1b.rent_a_car.services.dtos.requests.model.UpdateModelRequest;
+import tobetojava1b.rent_a_car.services.dtos.responses.model.GetModelListResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.model.GetModelResponse;
 import tobetojava1b.rent_a_car.entities.Model;
 import tobetojava1b.rent_a_car.repositories.BrandRepository;
@@ -43,6 +44,26 @@ public class ModelsController {
     @DeleteMapping
     public void delete(@PathVariable int id) {
         modelService.delete(id);
+    }
+
+    @GetMapping("/getName")
+    public List<Model> getNameIsNot(@RequestParam String name){
+        return modelService.getNameIsNot(name);
+    }
+
+    @GetMapping("/getName2")
+    public List<Model> findByNameStartingWith(@RequestParam String name)
+    {
+        return modelService.findByNameStartingWith(name);
+    }
+    @GetMapping("/search")
+    public List<GetModelListResponse> search(@RequestParam String name){
+        return this.modelService.search(name);
+    }
+    @GetMapping("/getYearEquals")
+    public List<GetModelListResponse> getModelYearEquals(@RequestParam String year)
+    {
+        return modelService.findModelYearEquals(year);
     }
 
 }

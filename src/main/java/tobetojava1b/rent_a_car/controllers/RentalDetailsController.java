@@ -11,6 +11,7 @@ import tobetojava1b.rent_a_car.services.dtos.requests.rentalDetail.AddRentalDeta
 import tobetojava1b.rent_a_car.services.dtos.requests.rentalDetail.UpdateRentalDetailRequest;
 import tobetojava1b.rent_a_car.services.dtos.responses.rentalDetail.GetRentalDetailResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,4 +44,24 @@ public class RentalDetailsController {
     public void delete(@PathVariable int id){
         rentalDetailService.delete(id);
     }
+    @GetMapping("/getLessPrice")
+    public List<RentalDetail> getRentalDetailLessThan(@RequestParam Integer price){
+        return rentalDetailService.findByTotalPriceLessThan(price);
+    }
+    @GetMapping("/getPriceBetween")
+    public List<GetRentalDetailResponse> getRentalDetailBetweenPrice(@RequestParam Integer startPrice,@RequestParam Integer endPrice)
+    {
+        return rentalDetailService.findByTotalPriceBetween(startPrice,endPrice);
+    }
+    @GetMapping("/search")
+    public List<GetRentalDetailResponse> search(@RequestParam Boolean status){
+        return rentalDetailService.search(status);
+    }
+    @GetMapping("/getOutOfDate")
+    public List<GetRentalDetailResponse> getOutOfDate(@RequestParam LocalDate date)
+    {
+        return rentalDetailService.getRentalByOutOfDate(date);
+    }
+
+
 }

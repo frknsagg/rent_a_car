@@ -9,6 +9,7 @@ import tobetojava1b.rent_a_car.services.dtos.requests.insurance.UpdateInsuranceR
 import tobetojava1b.rent_a_car.services.dtos.responses.customer.GetCustomerResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.insurance.GetInsuranceResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface InsuranceService {
@@ -21,4 +22,8 @@ public interface InsuranceService {
     void delete(int id);
 
     List<Insurance> getAll();
+    List<GetInsuranceResponse> findByCompanyNameLike(String name);
+    List<GetInsuranceResponse> findByStartDateAfter(LocalDate date);
+    List<GetInsuranceResponse> getAllPolicyNumber(String policyNumber);
+    List<GetInsuranceResponse> getRentalByOutOfDate(LocalDate date);
 }

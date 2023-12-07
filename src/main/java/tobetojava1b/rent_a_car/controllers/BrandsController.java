@@ -19,10 +19,10 @@ public class BrandsController {
 
     private final BrandService brandService;
 
-    @GetMapping
+    /*@GetMapping
     public List<GetBrandResponse> getAll(){
         return brandService.getAll();
-    }
+    }*/
     @GetMapping("{id}")
     public GetBrandResponse getById(@PathVariable int id) {
         return this.brandService.getById(id);
@@ -39,4 +39,14 @@ public class BrandsController {
     public void delete(@PathVariable int id){
         this.brandService.delete(id);
     }
+
+    @GetMapping()
+    public List<GetBrandListResponse> getByName(@RequestParam String name,@RequestParam int id){
+        return this.brandService.getByName(name,id);
+    }
+    @GetMapping("/getAll")
+    public List<GetBrandListResponse> getAll(@RequestParam String name){
+        return brandService.search3(name);
+    }
+
 }

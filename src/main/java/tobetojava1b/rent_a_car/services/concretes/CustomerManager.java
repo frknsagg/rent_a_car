@@ -9,6 +9,7 @@ import tobetojava1b.rent_a_car.services.dtos.requests.customer.AddCustomerReques
 import tobetojava1b.rent_a_car.services.dtos.requests.customer.UpdateCustomerRequest;
 import tobetojava1b.rent_a_car.services.dtos.responses.customer.GetCustomerResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -56,5 +57,37 @@ public class CustomerManager implements CustomerService {
     @Override
     public List<Customer> getAll() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public List<GetCustomerResponse> findByNameStartingWith(String prefix) {
+       List<Customer> customers = customerRepository.findByFirstNameStartingWith(prefix);
+       List<GetCustomerResponse> responses = new ArrayList<>();
+       for (Customer customer : customers){
+           responses.add(new GetCustomerResponse
+                   (customer.getFirstName(),customer.getLastName(),customer.getEmail(),customer.getPhoneNumber()));
+       }
+       return responses;
+    }
+
+    @Override
+    public List<GetCustomerResponse> findByNameEndingWith(String suffix) {
+        List<Customer> customers = customerRepository.findByLastNameEndingWith(suffix);
+        List<GetCustomerResponse> responses = new ArrayList<>();
+        for (Customer customer : customers){
+            responses.add(new GetCustomerResponse
+                    (customer.getFirstName(),customer.getLastName(),customer.getEmail(),customer.getPhoneNumber()));
+        }
+        return responses;
+    }
+
+    @Override
+    public List<GetCustomerResponse> getPhoneNumberIsNotNull() {
+        return customerRepository.getPhoneNumberIsNotNull();
+    }
+
+    @Override
+    public List<GetCustomerResponse> search(String firstName) {
+        return customerRepository.search(firstName);
     }
 }

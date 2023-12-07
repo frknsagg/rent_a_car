@@ -10,6 +10,8 @@ import tobetojava1b.rent_a_car.services.dtos.requests.rentalDetail.UpdateRentalD
 import tobetojava1b.rent_a_car.services.dtos.responses.brand.GetBrandResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.rentalDetail.GetRentalDetailResponse;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,10 +32,10 @@ public class RentalDetailManager implements RentalDetailService {
         new RentalDetail();
         RentalDetail rentalDetail = rentalDetailRepository.findById(id).orElseThrow();
         GetRentalDetailResponse dto = new GetRentalDetailResponse();
-        dto.setStartDate(rentalDetail.getStartDate());
+      /*  dto.setStartDate(rentalDetail.getStartDate());
         dto.setEndDate(rentalDetail.getEndDate());
         dto.setTotalPrice(rentalDetail.getTotalPrice());
-        dto.setStatus(rentalDetail.isRentalStatus());
+        dto.setStatus(rentalDetail.isRentalStatus());*/
 
         return dto;
     }
@@ -56,4 +58,32 @@ public class RentalDetailManager implements RentalDetailService {
     public List<RentalDetail> getAll() {
         return rentalDetailRepository.findAll();
     }
+
+    @Override
+    public List<RentalDetail> findByTotalPriceLessThan(Integer price) {
+        return rentalDetailRepository.findByTotalPriceLessThan(price);
+    }
+
+    @Override
+    public List<GetRentalDetailResponse> findByTotalPriceBetween(Integer startPrice, Integer endPrice) {
+       List<RentalDetail> rentalDetails = rentalDetailRepository.findByTotalPriceBetween(startPrice,endPrice);
+       List<GetRentalDetailResponse> responses = new ArrayList<>();
+       for (RentalDetail rentalDetail : rentalDetails){
+           responses.add(new GetRentalDetailResponse(rentalDetail.getStartDate(),rentalDetail.getEndDate(),rentalDetail.getTotalPrice(),rentalDetail.isRentalStatus()));
+       }
+        return responses;
+    }
+
+    @Override
+    public List<GetRentalDetailResponse> search(Boolean status) {
+        return rentalDetailRepository.getActiveRental(status);
+    }
+
+    @Override
+    public List<GetRentalDetailResponse> getRentalByOutOfDate(LocalDate date) {
+
+        return rentalDetailRepository.getRentalByOutOfDate(date);
+    }
+
+
 }

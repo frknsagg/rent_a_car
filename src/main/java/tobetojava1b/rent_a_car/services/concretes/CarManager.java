@@ -10,6 +10,7 @@ import tobetojava1b.rent_a_car.repositories.ModelRepository;
 import tobetojava1b.rent_a_car.services.abstracts.CarService;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.AddCarRequest;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.UpdateCarRequest;
+import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarListResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarResponse;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public List<Car> getAll() {
-        return carRepository.findAll();
+    public List<GetCarListResponse> getAll() {
+        return carRepository.getAll();
     }
 }

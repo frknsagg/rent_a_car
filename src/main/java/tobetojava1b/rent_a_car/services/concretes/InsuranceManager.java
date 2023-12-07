@@ -9,6 +9,8 @@ import tobetojava1b.rent_a_car.services.dtos.requests.insurance.AddInsuranceRequ
 import tobetojava1b.rent_a_car.services.dtos.requests.insurance.UpdateInsuranceRequest;
 import tobetojava1b.rent_a_car.services.dtos.responses.insurance.GetInsuranceResponse;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -58,5 +60,37 @@ public class InsuranceManager implements InsuranceService {
     @Override
     public List<Insurance> getAll() {
         return insuranceRepository.findAll();
+    }
+
+    @Override
+    public List<GetInsuranceResponse> findByCompanyNameLike(String name) {
+        List<Insurance> insurances = insuranceRepository.findByCompanyNameLike("%"+name+"%");
+        List<GetInsuranceResponse> responses = new ArrayList<>();
+
+        for (Insurance insurance : insurances){
+            responses.add(new GetInsuranceResponse(insurance.getCompanyName(),insurance.getStartDate(),insurance.getEndDate(),insurance.getPolicyNumber()));
+        }
+        return responses;
+    }
+
+    @Override
+    public List<GetInsuranceResponse> findByStartDateAfter(LocalDate date) {
+        List<Insurance> insurances = insuranceRepository.findByStartDateAfter(date);
+        List<GetInsuranceResponse> responses = new ArrayList<>();
+
+        for (Insurance insurance : insurances){
+            responses.add(new GetInsuranceResponse(insurance.getCompanyName(),insurance.getStartDate(),insurance.getEndDate(),insurance.getPolicyNumber()));
+        }
+        return responses;
+    }
+
+    @Override
+    public List<GetInsuranceResponse> getAllPolicyNumber(String policyNumber) {
+        return insuranceRepository.getAllPolicyNumber(policyNumber);
+    }
+
+    @Override
+    public List<GetInsuranceResponse> getRentalByOutOfDate(LocalDate date) {
+        return insuranceRepository.getRentalByOutOfDate(date);
     }
 }

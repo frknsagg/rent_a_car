@@ -3,6 +3,7 @@ package tobetojava1b.rent_a_car.services.abstracts;
 import tobetojava1b.rent_a_car.entities.Car;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.AddCarRequest;
 import tobetojava1b.rent_a_car.services.dtos.requests.car.UpdateCarRequest;
+import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarListResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.car.GetCarResponse;
 
 
@@ -17,5 +18,5 @@ public interface CarService {
 
     void delete(int id);
 
-    List<Car> getAll();
+    List<GetCarListResponse> getAll();
 }

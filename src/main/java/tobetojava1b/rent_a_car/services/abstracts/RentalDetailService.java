@@ -9,6 +9,7 @@ import tobetojava1b.rent_a_car.services.dtos.requests.rentalDetail.UpdateRentalD
 import tobetojava1b.rent_a_car.services.dtos.responses.customer.GetCustomerResponse;
 import tobetojava1b.rent_a_car.services.dtos.responses.rentalDetail.GetRentalDetailResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalDetailService {
@@ -21,4 +22,8 @@ public interface RentalDetailService {
     void delete(int id);
 
     List<RentalDetail> getAll();
+    List<RentalDetail> findByTotalPriceLessThan(Integer price);
+    List<GetRentalDetailResponse> findByTotalPriceBetween(Integer startPrice,Integer endPrice);
+    List<GetRentalDetailResponse> search(Boolean status);
+    List<GetRentalDetailResponse> getRentalByOutOfDate(LocalDate date);
 }
