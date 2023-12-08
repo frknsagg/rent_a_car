@@ -21,4 +21,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
             "GetCustomerResponse(c.firstName,c.lastName,c.email,c.phoneNumber)" +
             "From Customer c Where c.firstName = :firstName")
     List<GetCustomerResponse> search(String firstName);
+
+    boolean existsByEmail(String name);
+    boolean existsByPhoneNumber(String phone);
 }

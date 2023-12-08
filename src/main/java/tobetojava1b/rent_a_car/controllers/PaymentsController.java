@@ -1,6 +1,7 @@
 package tobetojava1b.rent_a_car.controllers;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.PaymentService;
@@ -28,7 +29,7 @@ public class PaymentsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddPaymentRequest addPaymentRequest){
+    public void add(@RequestBody @Valid AddPaymentRequest addPaymentRequest){
       paymentService.add(addPaymentRequest);
     }
 

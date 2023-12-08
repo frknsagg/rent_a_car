@@ -19,6 +19,12 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest request) {
+        if (customerRepository.existsByEmail(request.getEmail().trim())){
+            throw new RuntimeException("Kayıtlı email adresi");
+        }
+        if (customerRepository.existsByPhoneNumber(request.getPhone().trim())){
+            throw new RuntimeException("Kayıtlı telefon numarası");
+        }
         Customer customer = new Customer();
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());

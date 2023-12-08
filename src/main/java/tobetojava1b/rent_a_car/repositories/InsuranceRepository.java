@@ -22,4 +22,6 @@ public interface InsuranceRepository extends JpaRepository<Insurance,Integer> {
             "GetInsuranceResponse(i.companyName,i.startDate,i.endDate,i.policyNumber) " +
             "FROM Insurance i Where i.endDate < :date")
     List<GetInsuranceResponse> getRentalByOutOfDate(LocalDate date);
+
+    boolean existsByPolicyNumber(String policyNumber);
 }

@@ -19,6 +19,10 @@ public class InsuranceManager implements InsuranceService {
     private final InsuranceRepository insuranceRepository;
     @Override
     public void add(AddInsuranceRequest request) {
+        if (insuranceRepository.existsByPolicyNumber(request.getPolicyNumber().trim())){
+            throw new RuntimeException("Kayıtlı poliçe numarası var");
+        }
+
         Insurance insurance = new Insurance();
         insurance.setPolicyNumber(request.getPolicyNumber());
         insurance.setCompanyName(request.getCompanyName());

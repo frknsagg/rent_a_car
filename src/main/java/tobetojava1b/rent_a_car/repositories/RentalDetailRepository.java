@@ -20,5 +20,7 @@ public interface RentalDetailRepository extends JpaRepository<RentalDetail,Integ
             "GetRentalDetailResponse(r.startDate,r.endDate,r.totalPrice,r.rentalStatus) " +
             "FROM RentalDetail r Where r.endDate < :date")
     List<GetRentalDetailResponse> getRentalByOutOfDate(LocalDate date);
+
+
 }
 

@@ -23,6 +23,10 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public void add(AddPaymentRequest request) {
+        if (paymentRepository.existsByPaymentMethod(request.getPaymentMethod())){
+            throw new RuntimeException("Aynı method bulunmaktadır.");
+        }
+
         Payment payment = new Payment();
         payment.setPaymentMethod(request.getPaymentMethod());
         paymentRepository.save(payment);

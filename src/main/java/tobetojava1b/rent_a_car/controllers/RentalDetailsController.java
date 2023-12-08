@@ -1,5 +1,6 @@
 package tobetojava1b.rent_a_car.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.entities.Order;
@@ -31,7 +32,7 @@ public class RentalDetailsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddRentalDetailRequest request){
+    public void add(@RequestBody @Valid AddRentalDetailRequest request){
         rentalDetailService.add(request);
     }
 

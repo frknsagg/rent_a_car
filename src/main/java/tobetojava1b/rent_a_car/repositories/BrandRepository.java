@@ -14,6 +14,8 @@ public interface BrandRepository extends JpaRepository<Brand,Integer> {
     List<Brand> findAllByNameLikeOrIdEquals(String name,int id);
     List<Brand> findByNameEndingWith(String name);
 
+    boolean existsByName(String name);
+
 
     // JPA + SQL => JPQL
     // JPQL => SQL'dekinin tersine tablo ismi değil entity ismi kullanılır.

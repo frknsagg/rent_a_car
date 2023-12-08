@@ -21,6 +21,10 @@ public class ModelManager implements ModelService {
     private final BrandRepository brandRepository;
     @Override
     public void add(AddModelRequest request) {
+        if (modelRepository.existsByName(request.getName().trim())){
+            throw new RuntimeException("Aynı model bulunmaktadır.");
+        }
+
         Model model = new Model();
         model.setBrand(brandRepository.findById(request.getBrandId()).orElseThrow());
         model.setModelYear(request.getModelYear());

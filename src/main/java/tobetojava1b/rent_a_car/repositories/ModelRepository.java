@@ -22,5 +22,7 @@ public interface ModelRepository extends JpaRepository<Model,Integer> {
             "FROM Model m INNER JOIN m.brand b Where m.modelYear = :year ")
     List<GetModelListResponse> findModelYearEquals(String year);
 
+    boolean existsByName(String name);
+
 
 }

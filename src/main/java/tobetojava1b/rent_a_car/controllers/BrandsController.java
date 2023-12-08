@@ -1,5 +1,6 @@
 package tobetojava1b.rent_a_car.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.BrandService;
@@ -28,7 +29,7 @@ public class BrandsController {
         return this.brandService.getById(id);
     }
     @PostMapping()
-    public void add(@RequestBody AddBrandRequest request) {
+    public void add(@RequestBody @Valid AddBrandRequest request) {
         this.brandService.add(request);
     }
     @PutMapping("{id}")

@@ -1,5 +1,6 @@
 package tobetojava1b.rent_a_car.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.ModelService;
@@ -31,7 +32,7 @@ public class ModelsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddModelRequest addModelRequest) {
+    public void add(@RequestBody @Valid AddModelRequest addModelRequest) {
      modelService.add(addModelRequest);
     }
 
