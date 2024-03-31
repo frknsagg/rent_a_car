@@ -2,6 +2,7 @@ package tobetojava1b.rent_a_car.services.concretes;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tobetojava1b.rent_a_car.core.utilities.mappers.ModelMapperService;
 import tobetojava1b.rent_a_car.entities.Brand;
 import tobetojava1b.rent_a_car.repositories.BrandRepository;
 import tobetojava1b.rent_a_car.services.abstracts.BrandService;
@@ -12,12 +13,14 @@ import tobetojava1b.rent_a_car.services.dtos.responses.brand.GetBrandResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class BrandManager implements BrandService {
 
     private final BrandRepository brandRepository;
+    private final ModelMapperService modelMapperService;
     @Override
     public void add(AddBrandRequest addBrandRequest) {
        if (brandRepository.existsByName(addBrandRequest.getName().trim())){
@@ -53,15 +56,11 @@ public class BrandManager implements BrandService {
     @Override
     public List<GetBrandResponse> getAll() {
        List<Brand> brands = brandRepository.findAll();
-       List<GetBrandResponse> getBrandListResponseList = new ArrayList<>();
-        for (int i = 0; i < brands.size(); i++) {
-            GetBrandResponse getBrandResponse = new GetBrandResponse();
-            getBrandResponse.setName(brands.get(i).getName());
 
-
-             getBrandListResponseList.add(getBrandResponse);
-        }
-         return getBrandListResponseList;
+        List<GetBrandResponse> brandResponses = brands.stream().
+                map(brand -> this.modelMapperService.forResponse().map(brand,GetBrandResponse.class)).
+                collect(Collectors.toList());
+         return brandResponses;
     }
 
     @Override

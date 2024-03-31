@@ -2,6 +2,7 @@ package tobetojava1b.rent_a_car.services.concretes;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tobetojava1b.rent_a_car.core.utilities.mappers.ModelMapperService;
 import tobetojava1b.rent_a_car.entities.Customer;
 import tobetojava1b.rent_a_car.repositories.CustomerRepository;
 import tobetojava1b.rent_a_car.services.abstracts.CustomerService;
@@ -11,11 +12,13 @@ import tobetojava1b.rent_a_car.services.dtos.responses.customer.GetCustomerRespo
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class CustomerManager implements CustomerService {
     private final CustomerRepository customerRepository;
+    private ModelMapperService modelMapperService;
 
     @Override
     public void add(AddCustomerRequest request) {
@@ -25,12 +28,15 @@ public class CustomerManager implements CustomerService {
         if (customerRepository.existsByPhoneNumber(request.getPhone().trim())){
             throw new RuntimeException("Kayıtlı telefon numarası");
         }
-        Customer customer = new Customer();
+  /*      Customer customer = new Customer();
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setEmail(request.getEmail());
         customer.setPhoneNumber(request.getPhone());
-        customerRepository.save(customer);
+        customerRepository.save(customer);*/
+
+        Customer customer = this.modelMapperService.forRequest().map(request,Customer.class);
+        this.customerRepository.save(customer);
     }
 
     @Override
@@ -68,12 +74,10 @@ public class CustomerManager implements CustomerService {
     @Override
     public List<GetCustomerResponse> findByNameStartingWith(String prefix) {
        List<Customer> customers = customerRepository.findByFirstNameStartingWith(prefix);
-       List<GetCustomerResponse> responses = new ArrayList<>();
-       for (Customer customer : customers){
-           responses.add(new GetCustomerResponse
-                   (customer.getFirstName(),customer.getLastName(),customer.getEmail(),customer.getPhoneNumber()));
-       }
-       return responses;
+       List<GetCustomerResponse> customerResponses = customers.stream().map(customer -> this.modelMapperService.forResponse()
+               .map(customer,GetCustomerResponse.class)).collect(Collectors.toList());
+       return customerResponses;
+
     }
 
     @Override

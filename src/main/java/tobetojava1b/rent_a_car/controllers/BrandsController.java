@@ -2,6 +2,7 @@ package tobetojava1b.rent_a_car.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.services.abstracts.BrandService;
 import tobetojava1b.rent_a_car.services.dtos.requests.brand.AddBrandRequest;
@@ -29,6 +30,7 @@ public class BrandsController {
         return this.brandService.getById(id);
     }
     @PostMapping()
+    @ResponseStatus(code = HttpStatus.CREATED)
     public void add(@RequestBody @Valid AddBrandRequest request) {
         this.brandService.add(request);
     }
