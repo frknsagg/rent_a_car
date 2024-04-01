@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tobetojava1b.rent_a_car.entities.AircraftHoldProperty;
+import tobetojava1b.rent_a_car.mapper.AircraftHoldPropertyMapper;
 import tobetojava1b.rent_a_car.services.abstracts.AircraftHoldPropertyService;
+import tobetojava1b.rent_a_car.services.dtos.responses.holdproperty.GetAircraftHoldProperyListDTO;
 
 import java.util.List;
 
@@ -18,15 +20,18 @@ import java.util.List;
 @AllArgsConstructor
 public class AircraftHoldpropertyController {
     private AircraftHoldPropertyService aircraftHoldPropertyService;
+    private  AircraftHoldPropertyMapper aircraftHoldPropertyMapper;
 
     @GetMapping("/getAll")
-    public List<AircraftHoldProperty> getAll(){
+    public ResponseEntity<List<GetAircraftHoldProperyListDTO>> getAll(){
         List<AircraftHoldProperty> propertyList = aircraftHoldPropertyService.findAll();
 //        if(propertyList != null){
 //            return new ResponseEntity<>(propertyList, HttpStatus.OK);
 //        } else {
 //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return propertyList;
+
+        List<GetAircraftHoldProperyListDTO> aircraftHoldProperyListDTOS= aircraftHoldPropertyMapper.toDTOs(propertyList);
+        return new ResponseEntity<>(aircraftHoldProperyListDTOS,HttpStatus.OK);
 //        }
     }
 

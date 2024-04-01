@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -16,5 +15,5 @@ public class CreateAircraftHoldRegistration {
     private String registrationGroup;
     private List<String> registrationNumbers;
     private String comment;
-    private List<HoldpropertyDTO> holdpropertyDTOS;
+    private List<HoldPropertyDTO> holdPropertyDTOS;
 }

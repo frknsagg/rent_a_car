@@ -19,4 +19,5 @@ public class CreateAircraftHoldProperty {
     private String aircraftSubtype;
     private LocalDateTime validSince;
     private LocalDateTime validUntil;
+    private List<AircraftHoldRegistrationDTO> aircraftHoldRegistrationDTOS;
 }
