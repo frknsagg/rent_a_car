@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class HoldPropertyDTO {
-    private String holdName;
+    private Long id;
+    private String hold;
     private boolean ventilation;
     private boolean cargoTemperatureControlSystem;
     private int cargoTemperatureMin;

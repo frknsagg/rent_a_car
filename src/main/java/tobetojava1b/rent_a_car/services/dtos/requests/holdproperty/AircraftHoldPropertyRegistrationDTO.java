@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreateAircraftHoldRegistration {
+@AllArgsConstructor
+public class AircraftHoldPropertyRegistrationDTO {
 
-    private Long aircraftHoldpropertyId;
+    private Long id;
+    private List<HoldPropertyDTO> holdProperties;
     private String registrationGroup;
     private List<String> registrationNumbers;
     private String comment;
-    private List<HoldPropertyDTO> holdPropertyDTOS;
 }
