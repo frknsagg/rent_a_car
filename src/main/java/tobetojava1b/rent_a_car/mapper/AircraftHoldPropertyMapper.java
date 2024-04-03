@@ -5,7 +5,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 import tobetojava1b.rent_a_car.entities.AircraftHoldProperty;
+import tobetojava1b.rent_a_car.entities.AircraftHoldPropertyRegistration;
+import tobetojava1b.rent_a_car.repositories.AircraftHoldPropertyRepository;
 import tobetojava1b.rent_a_car.services.dtos.requests.holdproperty.AircraftHoldPropertyDTO;
+import tobetojava1b.rent_a_car.services.dtos.requests.holdproperty.AircraftHoldPropertyRegistrationDTO;
 import tobetojava1b.rent_a_car.services.dtos.responses.holdproperty.GetAircraftHoldProperyListDTO;
 
 import java.util.List;
@@ -19,7 +22,15 @@ public interface AircraftHoldPropertyMapper {
     AircraftHoldPropertyMapper INSTANCE = Mappers.getMapper(AircraftHoldPropertyMapper.class);
 
     AircraftHoldPropertyDTO toDto(AircraftHoldProperty entity);
+
     AircraftHoldProperty toEntity(AircraftHoldPropertyDTO dto);
+
+    AircraftHoldPropertyRegistration registrationDtoToEntity(AircraftHoldPropertyRegistrationDTO dto);
+
+
+    default AircraftHoldPropertyDTO entityToDto(AircraftHoldProperty entity) {
+        return Mappers.getMapper(AircraftHoldPropertyMapper.class).toDto(entity);
+    }
 //    AircraftHoldPropertyMapper INSTANCE = Mappers.getMapper(AircraftHoldPropertyMapper.class);
 //
 //

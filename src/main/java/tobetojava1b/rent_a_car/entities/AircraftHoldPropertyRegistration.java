@@ -24,21 +24,21 @@ public class AircraftHoldPropertyRegistration {
     @Column(name = "ID")
     private Long id;
 
-    @OneToMany(mappedBy = "aircraftHoldPropertyRegistration", cascade = CascadeType.ALL)
-    private List<HoldProperty> holdProperties ;
+//    @OneToMany(mappedBy = "aircraftHoldPropertyRegistration", cascade = CascadeType.ALL)
+//    private List<HoldProperty> holdProperties ;
 
     @ManyToOne()
-    @JoinColumn(name = "AIRCRAFT_HOLD_PROPERTY_ID", nullable = false)
+    @JoinColumn(name = "AIRCRAFT_HOLD_PROPERTY_ID")
     private AircraftHoldProperty aircraftHoldProperty;
 
     @Column(name = "REGISTRATION_GROUP")
     private String registrationGroup;
 
-    @ElementCollection
-    @CollectionTable(name = "AIRCRAFT_REGISTRATION_NUMBERS",
-            joinColumns = @JoinColumn(name = "REGISTRATION_ID"))
-    @Column(name = "REGISTRATION_NUMBER")
-    private List<String> registrationNumbers;
+//    @ElementCollection
+//    @CollectionTable(name = "AIRCRAFT_REGISTRATION_NUMBERS",
+//            joinColumns = @JoinColumn(name = "REGISTRATION_ID"))
+//    @Column(name = "REGISTRATION_NUMBER")
+//    private List<String> registrationNumbers;
 
     @Column(name = "COMMENT")
     private String comment;

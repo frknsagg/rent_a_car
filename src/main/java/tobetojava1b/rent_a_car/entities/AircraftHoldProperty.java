@@ -29,7 +29,7 @@ public class AircraftHoldProperty {
     private Long id;
 
     @OneToMany(mappedBy = "aircraftHoldProperty", cascade = CascadeType.ALL)
-    private List<AircraftHoldPropertyRegistration> aircraftHoldPropertyRegistrations;
+    private List<AircraftHoldPropertyRegistration> registrations;
 
     @Column(name = "AIRCRAFT_GROUP")
     private String aircraftGroup;

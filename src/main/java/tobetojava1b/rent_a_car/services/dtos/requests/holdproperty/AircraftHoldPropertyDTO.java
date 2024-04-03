@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 public class AircraftHoldPropertyDTO {
     private Long id;
-    private List<AircraftHoldPropertyRegistrationDTO> aircraftHoldPropertyRegistrations;
     private String aircraftGroup;
     private String aircraftOwner;
     private String aircraftSubtype;
     private LocalDateTime validSince;
     private LocalDateTime validUntil;
+    private List<AircraftHoldPropertyRegistrationDTO> aircraftHoldPropertyRegistrations;
 
 }

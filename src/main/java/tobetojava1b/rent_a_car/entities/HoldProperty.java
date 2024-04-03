@@ -38,8 +38,8 @@ public class HoldProperty{
     @Column(name = "CARGO_TEMPERATURE_MAX")
     private int cargoTemperatureMax;
 
-    @ManyToOne()
-    @JoinColumn(name = "AIRCRAFT_HOLD_REGISTRATION_ID", nullable = false)
-    private AircraftHoldPropertyRegistration aircraftHoldPropertyRegistration;
+//    @ManyToOne()
+//    @JoinColumn(name = "AIRCRAFT_HOLD_REGISTRATION_ID", nullable = false)
+//    private AircraftHoldPropertyRegistration aircraftHoldPropertyRegistration;
 
 }

@@ -16,15 +16,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/brands")
-@AllArgsConstructor
+
 public class BrandsController {
 
     private final BrandService brandService;
 
+    public BrandsController(BrandService brandService) {
+        this.brandService = brandService;
+    }
+
     /*@GetMapping
-    public List<GetBrandResponse> getAll(){
-        return brandService.getAll();
-    }*/
+        public List<GetBrandResponse> getAll(){
+            return brandService.getAll();
+        }*/
     @GetMapping("{id}")
     public GetBrandResponse getById(@PathVariable int id) {
         return this.brandService.getById(id);
